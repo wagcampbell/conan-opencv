@@ -155,6 +155,10 @@ class OpenCVConan(ConanFile):
         if self.options.contrib:
             cmake.definitions['OPENCV_EXTRA_MODULES_PATH'] = os.path.join(self.build_folder, 'contrib', 'modules')
 
+        if self.settings.os == 'Android':
+            cmake.definitions['ANDROID_STL'] = self.settings.compiler.libcxx
+            cmake.definitions['ANDROID_NATIVE_API_LEVEL'] = self.settings.os.api_level
+
         cmake.configure(build_folder=self._build_subfolder)
         return cmake
 
