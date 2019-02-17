@@ -45,7 +45,8 @@ class OpenCVConan(ConanFile):
         tools.get("https://github.com/opencv/opencv_contrib/archive/%s.zip" % self.version)
         os.rename('opencv_contrib-%s' % self.version, 'contrib')
 
-        shutil.rmtree(os.path.join(self._source_subfolder, '3rdparty'))
+        if self.settings.os != 'Android':
+            tools.rmdir(os.path.join(self._source_subfolder, '3rdparty'))
 
     def config_options(self):
         if self.settings.os == 'Windows':
