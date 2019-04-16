@@ -159,6 +159,15 @@ class OpenCVConan(ConanFile):
             cmake.definitions['ANDROID_STL'] = self.settings.compiler.libcxx
             cmake.definitions['ANDROID_NATIVE_API_LEVEL'] = self.settings.os.api_level
 
+            if 'ANDROID_HOME' in os.environ:
+                cmake.definitions['ANDROID_HOME'] = os.environ.get('ANDROID_HOME')
+
+            if 'ANDROID_SDK_ROOT' in os.environ:
+                cmake.definitions['ANDROID_SDK_ROOT'] = os.environ.get('ANDROID_SDK_ROOT')
+
+            if 'SDK_ROOT' in os.environ:
+                cmake.definitions['SDK_ROOT'] = os.environ.get('SDK_ROOT')
+
         cmake.configure(build_folder=self._build_subfolder)
         return cmake
 
